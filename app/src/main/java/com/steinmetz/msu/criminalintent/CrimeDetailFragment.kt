@@ -27,7 +27,8 @@ class CrimeDetailFragment : Fragment() {
             id = UUID.randomUUID(),
             title = "",
             date = Date(),
-            isSolved = false
+            isSolved = false,
+            requiresPolice = false
         )
     }
 
@@ -35,7 +36,7 @@ class CrimeDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCrimeDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

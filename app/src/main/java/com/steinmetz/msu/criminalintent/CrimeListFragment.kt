@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.steinmetz.msu.criminalintent.databinding.FragmentCrimeDetailBinding
 import com.steinmetz.msu.criminalintent.databinding.FragmentCrimeListBinding
-import layout.CrimeListAdapter
 
 private const val TAG = "CrimeListFragment"
 class CrimeListFragment : Fragment() {
@@ -29,9 +27,10 @@ class CrimeListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCrimeListBinding.inflate(inflater, container, false)
 
         binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
