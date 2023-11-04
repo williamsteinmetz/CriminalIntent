@@ -1,13 +1,16 @@
 package com.steinmetz.msu.criminalintent
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.steinmetz.msu.criminalintent.databinding.FragmentCrimeDetailBinding
-import java.util.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 
@@ -20,13 +23,18 @@ class CrimeDetailFragment : Fragment() {
         }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val localDate = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy")
+        val date = localDate.format(formatter)
 
         crime = Crime(
             id = UUID.randomUUID(),
             title = "",
-            date = Date(),
+            date = date,
             isSolved = false,
             requiresPolice = false
         )
@@ -50,7 +58,7 @@ class CrimeDetailFragment : Fragment() {
             }
 
             crimeDate.apply {
-                text = crime.date.toString()
+                text = crime.date
                 isEnabled = false
             }
 

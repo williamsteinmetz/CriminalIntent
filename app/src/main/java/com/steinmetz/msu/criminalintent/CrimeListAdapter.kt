@@ -1,6 +1,7 @@
 package com.steinmetz.msu.criminalintent
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -10,43 +11,53 @@ import com.steinmetz.msu.criminalintent.databinding.ListItemCrimeRequiresPoliceB
 
 // ViewHolder for layout where requiresPolice = false
 class CrimeHolder(
-    private val crimeNoPolice: ListItemCrimeBinding
-) : ViewHolder(crimeNoPolice.root) {
+    private val crimeNoPoliceBinding: ListItemCrimeBinding
+) : ViewHolder(crimeNoPoliceBinding.root) {
     fun bind(crime: Crime) {
-        crimeNoPolice.crimeTitleTextview.text = crime.title
-        crimeNoPolice.crimeDateTextview.text = crime.date.toString()
+        crimeNoPoliceBinding.crimeTitleTextview.text = crime.title
+        crimeNoPoliceBinding.crimeDateTextview.text = crime.date
 
-        crimeNoPolice.root.setOnClickListener {
+        crimeNoPoliceBinding.root.setOnClickListener {
             Toast.makeText(
-                crimeNoPolice.root.context,
+                crimeNoPoliceBinding.root.context,
                 "${crime.title} clicked!",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+        crimeNoPoliceBinding.crimeSolved.visibility = if (crime.isSolved) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 }
 // ViewHolder for layout where requiresPolice = true
 class CrimeRequiresPoliceHolder(
-    private val crimeRequiresPolice: ListItemCrimeRequiresPoliceBinding
-) : ViewHolder(crimeRequiresPolice.root) {
+    private val crimeRequiresPoliceBinding: ListItemCrimeRequiresPoliceBinding
+) : ViewHolder(crimeRequiresPoliceBinding.root) {
     fun bind(crime: Crime) {
-        crimeRequiresPolice.crimeTitleTextview.text = crime.title
-        crimeRequiresPolice.crimeDateTextview.text = crime.date.toString()
+        crimeRequiresPoliceBinding.crimeTitleTextview.text = crime.title
+        crimeRequiresPoliceBinding.crimeDateTextview.text = crime.date
 
-        crimeRequiresPolice.root.setOnClickListener {
+        crimeRequiresPoliceBinding.root.setOnClickListener {
             Toast.makeText(
-                crimeRequiresPolice.root.context,
+                crimeRequiresPoliceBinding.root.context,
                 "${crime.title} clicked!",
                 Toast.LENGTH_SHORT
             ).show()
         }
 // Toast Notification for clicking the Contact Police Button
-        crimeRequiresPolice.crimeRequiresPoliceButton.setOnClickListener {
+        crimeRequiresPoliceBinding.crimeRequiresPoliceButton.setOnClickListener {
             Toast.makeText(
-                crimeRequiresPolice.root.context,
+                crimeRequiresPoliceBinding.root.context,
                 "Ohh, I'm calling the police!!",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+        crimeRequiresPoliceBinding.crimeSolved.visibility = if (crime.isSolved) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 }
