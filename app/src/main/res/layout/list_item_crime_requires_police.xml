@@ -17,14 +17,14 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/crime_title"
+        android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintBottom_toTopOf="@+id/crime_date_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/crime_solved"
         app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:textAppearance="?attr/textAppearanceHeadline6"/>
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/crime_date_textview"

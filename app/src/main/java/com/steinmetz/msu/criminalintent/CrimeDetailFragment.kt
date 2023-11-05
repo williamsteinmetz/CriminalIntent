@@ -13,6 +13,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
+// Fragment used to input crime information.
 
 class CrimeDetailFragment : Fragment() {
     private lateinit var crime: Crime

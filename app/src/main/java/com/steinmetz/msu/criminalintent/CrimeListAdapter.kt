@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.steinmetz.msu.criminalintent.databinding.ListItemCrimeBinding
 import com.steinmetz.msu.criminalintent.databinding.ListItemCrimeRequiresPoliceBinding
 
-// ViewHolder for layout where requiresPolice = false
+// ViewHolder for list_item_crime layout when crime instance property has requiresPolice = false
 class CrimeHolder(
     private val crimeNoPoliceBinding: ListItemCrimeBinding
 ) : ViewHolder(crimeNoPoliceBinding.root) {
@@ -24,6 +24,7 @@ class CrimeHolder(
                 Toast.LENGTH_SHORT
             ).show()
         }
+        // Hides or shows image based on crime instance property isSolved
         crimeNoPoliceBinding.crimeSolved.visibility = if (crime.isSolved) {
             View.VISIBLE
         } else {
@@ -31,7 +32,9 @@ class CrimeHolder(
         }
     }
 }
-// ViewHolder for layout where requiresPolice = true
+
+// ViewHolder for list_item_crime_requires_police layout when crime instance property
+// has requiresPolice = false
 class CrimeRequiresPoliceHolder(
     private val crimeRequiresPoliceBinding: ListItemCrimeRequiresPoliceBinding
 ) : ViewHolder(crimeRequiresPoliceBinding.root) {
@@ -54,6 +57,8 @@ class CrimeRequiresPoliceHolder(
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+        // Hides or shows image based on crime instance property isSolved
         crimeRequiresPoliceBinding.crimeSolved.visibility = if (crime.isSolved) {
             View.VISIBLE
         } else {
@@ -86,17 +91,18 @@ class CrimeListAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) : ViewHolder {
+    ): ViewHolder {
         return if (viewType == CRIME_NO_POLICE) {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
             CrimeHolder(binding)
-        }else {
+        } else {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ListItemCrimeRequiresPoliceBinding.inflate(inflater, parent, false)
             CrimeRequiresPoliceHolder(binding)
         }
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (getItemViewType(position) == CRIME_NO_POLICE) {
             (holder as CrimeHolder).bind(crimes[position])
@@ -104,6 +110,7 @@ class CrimeListAdapter(
             (holder as CrimeRequiresPoliceHolder).bind(crimes[position])
         }
     }
+
     override fun getItemCount() = crimes.size
 }
 

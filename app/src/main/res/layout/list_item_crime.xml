@@ -15,10 +15,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/crime_title"
+        android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintEnd_toStartOf="@+id/crime_solved"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textAppearance="?attr/textAppearanceHeadline6"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/crime_date_textview"
@@ -43,5 +43,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666"
         app:srcCompat="@drawable/ic_solved" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
