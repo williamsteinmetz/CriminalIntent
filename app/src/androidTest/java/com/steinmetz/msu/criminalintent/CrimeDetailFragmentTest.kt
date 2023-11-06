@@ -25,9 +25,11 @@ class CrimeDetailFragmentTest {
     @Before
     fun setUp() {
         scenario = launchFragmentInContainer(
-            themeResId = R.style.Theme_CriminalIntent
+            themeResId = R.style.Theme_CriminalIntent,
+            initialState = Lifecycle.State.STARTED
         )
-        scenario.moveToState(Lifecycle.State.STARTED)
+        // scenario.moveToState(Lifecycle.State.STARTED) (This is that same as the third arg
+        // for launchFragmentInContainer(x,x,initialState)
     }
 
     @After

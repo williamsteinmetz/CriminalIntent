@@ -73,13 +73,13 @@ class CrimeListAdapter(
     private var crimes: MutableList<Crime>
 ) : RecyclerView.Adapter<ViewHolder>() {
 
-
+// Used to create unique values that correspond with each view
     companion object {
         const val CRIME_NO_POLICE = 0
         const val CRIME_REQUIRES_POLICE = 1
     }
 
-
+// Returns the unique value depending the boolean requiresPolice
     override fun getItemViewType(position: Int): Int {
         return when {
             crimes[position].requiresPolice -> CRIME_REQUIRES_POLICE
