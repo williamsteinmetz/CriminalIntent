@@ -70,7 +70,7 @@ class CrimeRequiresPoliceHolder(
 
 // Adapter that extends multiple ViewHolders
 class CrimeListAdapter(
-    private var crimes: MutableList<Crime>
+    private var crimes: List<Crime>
 ) : RecyclerView.Adapter<ViewHolder>() {
 
 // Used to create unique values that correspond with each view
@@ -82,7 +82,7 @@ class CrimeListAdapter(
 // Returns the unique value depending the boolean requiresPolice
     override fun getItemViewType(position: Int): Int {
         return when {
-            crimes[position].requiresPolice -> CRIME_REQUIRES_POLICE
+            crimes[position].requiresPolice == 1-> CRIME_REQUIRES_POLICE
             else -> CRIME_NO_POLICE
         }
     }
