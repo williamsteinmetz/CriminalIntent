@@ -28,9 +28,6 @@ class CrimeDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val localDate = LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy")
-        val date = localDate.format(formatter)
 
         crime = Crime(
             id = UUID.randomUUID(),

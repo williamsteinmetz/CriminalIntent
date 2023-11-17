@@ -7,10 +7,10 @@ import java.util.UUID
 // Crime constructor
 @Entity
    data class Crime(
-    @PrimaryKey val id: UUID,
-    val title: String,
-    val date: Int,
-    val isSolved: Int
+ @PrimaryKey val id: UUID,
+ val title: String,
+ val date: Int,
+ val isSolved: Int
     )
 
 

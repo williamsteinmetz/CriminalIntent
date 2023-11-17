@@ -20,11 +20,8 @@ import java.util.*
 private const val TAG = "CrimeListFragment"
 
 class CrimeListFragment : Fragment() {
-
-
     private var _binding: FragmentCrimeListBinding? = null
 
-//    private var job: Job? = null
     private val binding
         get() = checkNotNull(_binding) {
             "Cannot access binding because it is null. Is the view visible?"
@@ -42,39 +39,24 @@ class CrimeListFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-    private var counter = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 crimeListViewModel.crimes.collect { crimeList ->
-                    var tempCrime = crimeList.map { it }
-
-                    print(tempCrime)
-                    println("This is temp crime")
-                    binding.crimeRecyclerView.adapter = CrimeListAdapter(tempCrime)
-                    }
-
-
-                    }
-
+                    binding.crimeRecyclerView.adapter = CrimeListAdapter(crimeList)
                 }
             }
-
-//
-//    override fun onStop() {
-//        super.onStop()
-//        job?.cancel()
-//    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-
-
-
+        }
     }
+            override fun onDestroyView() {
+                super.onDestroyView()
+                _binding = null
 
 
-}
+            }
+        }
+
+
