@@ -9,8 +9,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.steinmetz.msu.criminalintent.databinding.FragmentCrimeDetailBinding
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 // Fragment used to input crime information.

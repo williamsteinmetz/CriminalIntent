@@ -1,7 +1,6 @@
 package com.steinmetz.msu.criminalintent
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.steinmetz.msu.criminalintent.databinding.FragmentCrimeListBinding
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.util.*
-
-private const val TAG = "CrimeListFragment"
 
 class CrimeListFragment : Fragment() {
     private var _binding: FragmentCrimeListBinding? = null

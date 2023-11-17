@@ -1,18 +1,13 @@
 package com.steinmetz.msu.criminalintent
 
 
-import android.os.Build
+
 import android.util.Log
-import androidx.annotation.RequiresApi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.UUID
 
 
 private const val TAG = "CrimeListViewModel"
@@ -30,10 +25,10 @@ class CrimeListViewModel : ViewModel() {
         viewModelScope.launch {
             crimeRepository.getCrimes().collect { crimeList ->
                 _crimes.value = crimeList
-                println("Run inside .collect on Viewmodel -- ${crimeList.size} crimes collected")
+                println("Run inside .collect on View model -- ${crimeList.size} crimes collected")
                 println("value of _crimes -- ${_crimes.value}")
                 println("value of crimes -- ${crimes.value}")
-                println("End of Viewmodel")
+                println("End of View model")
             }
         }
 

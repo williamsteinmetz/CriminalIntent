@@ -1,7 +1,6 @@
 package com.steinmetz.msu.criminalintent.database
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import java.util.Date
 
 class CrimeTypeConverters {

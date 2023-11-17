@@ -9,8 +9,6 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.steinmetz.msu.criminalintent.databinding.ListItemCrimeBinding
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Date
 
 // ViewHolder for list_item_crime layout when crime instance property has requiresPolice = false
@@ -31,7 +29,7 @@ class CrimeListAdapter(
 //        const val CRIME_NO_POLICE = 0
 //        const val CRIME_REQUIRES_POLICE = 1
 //    }
-// Returns the unique value depending the boolean requiresPolice
+// Returns the unique value depending on the boolean requiresPolice
 //    override fun getItemViewType(position: Int): Int {
 //        return 0
 //    }
@@ -64,15 +62,15 @@ class CrimeListAdapter(
             val long = crime[counter].date.toLong()
             crimeBinding.crimeTitleTextview.text = crime[counter].title
             crimeBinding.crimeDateTextview.text = Date(long).toString()
-                println("Run at beginning of crimeHolder Bind -- ${crime.size} crimes collected")
-                println("title of crimes -- ${crime.map { it.title }}")
+            println("Run at beginning of crimeHolder Bind -- ${crime.size} crimes collected")
+            println("title of crimes -- ${crime.map { it.title }}")
 
 
 
             crimeBinding.root.setOnClickListener {
                 Toast.makeText(
                     crimeBinding.root.context,
-                    "${crime.toString()} clicked!",
+                    "$crime clicked!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
