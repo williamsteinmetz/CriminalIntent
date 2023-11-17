@@ -35,9 +35,8 @@ class CrimeDetailFragment : Fragment() {
         crime = Crime(
             id = UUID.randomUUID(),
             title = "",
-            date = date,
-            isSolved = false,
-            requiresPolice = 0
+            date = 0,
+            isSolved = 0
         )
     }
 
@@ -59,12 +58,12 @@ class CrimeDetailFragment : Fragment() {
             }
 
             crimeDate.apply {
-                text = crime.date
+                text = crime.date.toString()
                 isEnabled = false
             }
 
             crimeSolved.setOnCheckedChangeListener { _, isChecked ->
-                crime = crime.copy(isSolved = isChecked)
+                crime = crime.copy(isSolved = 1)
             }
         }
     }

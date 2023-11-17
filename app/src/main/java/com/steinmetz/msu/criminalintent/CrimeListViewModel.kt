@@ -5,9 +5,8 @@ import android.util.Log
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.UUID
 
@@ -25,9 +24,12 @@ class CrimeListViewModel : ViewModel() {
     init {
         Log.d(TAG, "init starting")
         viewModelScope.launch {
-            crimeRepository.getCrimes().collect {
-                _crimes.value = it
-                Log.d(TAG, "C")
+            crimeRepository.getCrimes().collect { crimeList ->
+                _crimes.value = crimeList
+                println("Run inside .collect on Viewmodel -- ${crimeList.size} crimes collected")
+                println("value of _crimes -- ${_crimes.value}")
+                println("value of crimes -- ${crimes.value}")
+                println("End of Viewmodel")
             }
         }
 

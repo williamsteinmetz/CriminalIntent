@@ -9,9 +9,8 @@ import java.util.UUID
    data class Crime(
     @PrimaryKey val id: UUID,
     val title: String,
-    val date: String,
-    val isSolved: Boolean,
-    val requiresPolice: Int
+    val date: Int,
+    val isSolved: Int
     )
 
 
