@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.steinmetz.msu.criminalintent.databinding.ListItemCrimeBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Date
 
 // ViewHolder for list_item_crime layout when crime instance property has requiresPolice = false
 
@@ -71,11 +70,8 @@ class CrimeListAdapter(
                 crime[viewHolderCounter].date
                 return date
             }
-
-
             crimeBinding.crimeTitleTextview.text = crime[viewHolderCounter].title
             crimeBinding.crimeDateTextview.text = formatDate()
-
             crimeBinding.root.setOnClickListener {
                 Toast.makeText(
                     crimeBinding.root.context,
@@ -89,8 +85,6 @@ class CrimeListAdapter(
             } else {
                 View.GONE
             }
-
-
         }
     }
 
