@@ -29,7 +29,7 @@ class CrimeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCrimeListBinding.inflate(inflater, container, false)
-        binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
+        _binding!!.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -45,12 +45,13 @@ class CrimeListFragment : Fragment() {
             }
         }
     }
-            override fun onDestroyView() {
-                super.onDestroyView()
-                _binding = null
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
 
 
-            }
-        }
+    }
+}
 
 

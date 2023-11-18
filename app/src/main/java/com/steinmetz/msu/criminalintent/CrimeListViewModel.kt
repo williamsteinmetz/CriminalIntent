@@ -1,7 +1,6 @@
 package com.steinmetz.msu.criminalintent
 
 
-
 import android.util.Log
 
 import androidx.lifecycle.ViewModel

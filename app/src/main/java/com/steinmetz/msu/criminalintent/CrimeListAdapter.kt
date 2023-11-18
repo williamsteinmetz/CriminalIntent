@@ -9,17 +9,17 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.steinmetz.msu.criminalintent.databinding.ListItemCrimeBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 // ViewHolder for list_item_crime layout when crime instance property has requiresPolice = false
-
 
 
 // Adapter that extends multiple ViewHolders
 class CrimeListAdapter(
     private var crimeList: List<Crime>
 ) : RecyclerView.Adapter<ViewHolder>() {
-
     init {
         println("Run at beginning of Adapter -- $crimeList crimes collected")
         println("title of crimes -- ${crimeList.map { it.title }}")
@@ -35,7 +35,6 @@ class CrimeListAdapter(
 //    }
 
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -44,38 +43,48 @@ class CrimeListAdapter(
         val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
         return CrimeHolder(binding)
     }
-    private var counter = 0
+
+    private var viewHolderCounter = 0
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         println("ON BIND VIEWHOLDER")
-        (holder as CrimeHolder).bind(crimeList, counter)
-        counter++
+        (holder as CrimeHolder).bind(crimeList, viewHolderCounter)
+        viewHolderCounter = holder.absoluteAdapterPosition
     }
+
+
 
     class CrimeHolder(
         private val crimeBinding: ListItemCrimeBinding
     ) : ViewHolder(crimeBinding.root) {
+        fun bind(crime: List<Crime>, viewHolderCounter: Int) {
+
+             @RequiresApi(Build.VERSION_CODES.O)
+             fun formatDate(): String {
+
+                 val localDate: LocalDate = LocalDate.now()
+                // formatter sets the pattern for the date output in "Sunday, November 5, 2023" format
+                val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")
+                // date is assigned the value of a formatted localDate to the above pattern
+                val date: String = localDate.format(formatter)
+                 val long = crime[viewHolderCounter].date.toLong()
+                crime[viewHolderCounter].date
+                return date
+            }
 
 
-        fun bind(crime: List<Crime>, counter: Int) {
-
-            val long = crime[counter].date.toLong()
-            crimeBinding.crimeTitleTextview.text = crime[counter].title
-            crimeBinding.crimeDateTextview.text = Date(long).toString()
-            println("Run at beginning of crimeHolder Bind -- ${crime.size} crimes collected")
-            println("title of crimes -- ${crime.map { it.title }}")
-
-
+            crimeBinding.crimeTitleTextview.text = crime[viewHolderCounter].title
+            crimeBinding.crimeDateTextview.text = formatDate()
 
             crimeBinding.root.setOnClickListener {
                 Toast.makeText(
                     crimeBinding.root.context,
-                    "$crime clicked!",
+                    "${crime[viewHolderCounter].title} clicked!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
             // Hides or shows image based on crime instance property isSolved
-            crimeBinding.crimeSolved.visibility = if (crime[counter].isSolved == 0) {
+            crimeBinding.crimeSolved.visibility = if (crime[viewHolderCounter].isSolved == 0) {
                 View.VISIBLE
             } else {
                 View.GONE
@@ -84,6 +93,7 @@ class CrimeListAdapter(
 
         }
     }
+
     override fun getItemCount() = crimeList.size
 
     init {

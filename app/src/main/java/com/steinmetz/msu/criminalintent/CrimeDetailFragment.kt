@@ -25,14 +25,6 @@ class CrimeDetailFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        crime = Crime(
-            id = UUID.randomUUID(),
-            title = "",
-            date = 0,
-            isSolved = 0
-        )
     }
 
     override fun onCreateView(
