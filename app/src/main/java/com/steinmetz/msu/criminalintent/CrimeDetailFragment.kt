@@ -2,7 +2,7 @@ package com.steinmetz.msu.criminalintent
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils.isEmpty
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,24 +18,16 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.steinmetz.msu.criminalintent.databinding.FragmentCrimeDetailBinding
 import kotlinx.coroutines.launch
-import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 // Fragment used to input crime information.
-
 class CrimeDetailFragment : Fragment() {
-
-
-
     private val args: CrimeDetailFragmentArgs by navArgs()
 
     private val crimeDetailViewModel: CrimeDetailViewModel by viewModels {
         CrimeDetailViewModelFactory(args.crimeId)
     }
-
 
     private var _binding: FragmentCrimeDetailBinding? = null
     private val binding
@@ -44,10 +36,9 @@ class CrimeDetailFragment : Fragment() {
         }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
+        setupOnBackPressed(false)
         _binding = FragmentCrimeDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -60,6 +51,8 @@ class CrimeDetailFragment : Fragment() {
                 crimeDetailViewModel.updateCrime { oldCrime ->
                     oldCrime.copy(title = text.toString())
                 }
+                val titleIsEmpty = crimeDetailViewModel.crime.value?.title
+                setupOnBackPressed(isEmpty(titleIsEmpty))
             }
 
             crimeDate.apply {
@@ -75,22 +68,18 @@ class CrimeDetailFragment : Fragment() {
                         }
                     )
                 }
-            println(isChecked)
-            println("Crime has been updated with the following value: $isChecked")
+                println(isChecked)
             }
         }
-
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 crimeDetailViewModel.crime.collect { crime ->
                     crime?.let { updateUi(it) }
-                    println("This should be the value passed to _crime: " + crime?.isSolved.toString())
                 }
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -99,25 +88,39 @@ class CrimeDetailFragment : Fragment() {
 
     private fun updateUi(crime: Crime) {
         binding.apply {
-            @RequiresApi(Build.VERSION_CODES.O)
-            if (crimeTitle.text.toString() != crime.title) {
+            @RequiresApi(Build.VERSION_CODES.O) if (crimeTitle.text.toString() != crime.title) {
                 crimeTitle.setText(crime.title)
             }
-
             fun formatDate(dateInt: Int): String {
                 val long = dateInt.toLong()
                 val crimeDate = Date(long)
                 // formatter sets the pattern for the date output in "Sunday, November 5, 2023" format
-                val format = SimpleDateFormat("EEEE, MMMM d, yyyy")
+                val format = SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.US)
                 // date is assigned the value of a formatted localDate to the above pattern
                 return format.format(crimeDate)
             }
 
             crimeDate.text = formatDate(crime.date)
-            crimeSolved.isChecked = when(crime.isSolved) {
+            crimeSolved.isChecked = when (crime.isSolved) {
                 1 -> true
                 else -> false
             }
         }
+    }
+
+    // Prevent Back Press on Empty Crime.title value
+    private fun setupOnBackPressed(emptyTitleBoolean: Boolean) {
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(emptyTitleBoolean) {
+            override fun handleOnBackPressed() {
+                if (isEmpty(crimeDetailViewModel.crime.value?.title)) {
+                    isEnabled = true
+                    requireActivity().onBackPressedDispatcher
+                    Toast.makeText(context, "Psst, the title is missing.", Toast.LENGTH_LONG).show()
+                } else {
+                    isEnabled = false
+                    return
+                }
+            }
+        })
     }
 }

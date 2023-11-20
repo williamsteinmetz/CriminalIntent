@@ -24,20 +24,15 @@ class CrimeDetailViewModel(crimeId: UUID) : ViewModel() {
 
     fun updateCrime(onUpdate: (Crime) -> Crime) {
         _crime.update { oldCrime ->
-            oldCrime?.let { onUpdate(it)}
+            oldCrime?.let { onUpdate(it) }
         }
-        println("updateCrime(Crime) has been called. Here is the value passed: " + _crime.value?.isSolved)
-
     }
 
     override fun onCleared() {
         super.onCleared()
-            crime.value?.let { crimeRepository.updateCrime(it)}
+        crime.value?.let { crimeRepository.updateCrime(it) }
     }
 }
-
-
-
 
 class CrimeDetailViewModelFactory(
     private val crimeId: UUID

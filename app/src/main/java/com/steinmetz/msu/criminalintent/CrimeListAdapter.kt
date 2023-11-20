@@ -4,7 +4,6 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -48,17 +47,11 @@ class CrimeHolder(
 
 // Adapter that extends multiple ViewHolders
 class CrimeListAdapter(
-    private val crimeList: List<Crime>,
-    private val onCrimeClicked: (crimeId: UUID) -> Unit
+    private val crimeList: List<Crime>, private val onCrimeClicked: (crimeId: UUID) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
-//    init {
-//        println("Run at beginning of Adapter -- $crimeList crimes collected")
-//        println("title of crimes -- ${crimeList.map { it.title }}")
-//    }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
@@ -71,12 +64,7 @@ class CrimeListAdapter(
         (holder as CrimeHolder).bind(crime, onCrimeClicked)
     }
 
-
     override fun getItemCount() = crimeList.size
-
-    init {
-        println("End of Adapter")
-    }
 }
 
 

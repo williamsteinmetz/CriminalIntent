@@ -22,5 +22,5 @@
         <argument
             android:name="crimeId"
             app:argType="java.util.UUID" />
-    </fragment>/>
+    </fragment>
 </navigation>

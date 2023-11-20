@@ -25,9 +25,7 @@ class CrimeListFragment : Fragment() {
     private val crimeListViewModel: CrimeListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCrimeListBinding.inflate(inflater, container, false)
         _binding!!.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -42,7 +40,7 @@ class CrimeListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 crimeListViewModel.crimes.collect { crimeList ->
                     binding.crimeRecyclerView.adapter = CrimeListAdapter(crimeList) { crimeId ->
-                            findNavController().navigate(CrimeListFragmentDirections.showCrimeDetail(crimeId))
+                        findNavController().navigate(CrimeListFragmentDirections.showCrimeDetail(crimeId))
                     }
                 }
             }
