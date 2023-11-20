@@ -26,7 +26,7 @@ class CrimeListViewModel : ViewModel() {
                 _crimes.value = crimeList
                 println("Run inside .collect on View model -- ${crimeList.size} crimes collected")
                 println("value of _crimes -- ${_crimes.value}")
-                println("value of crimes -- ${crimes.value}")
+                println("value of 1st Crime -- ${crimes.value[0]}")
                 println("End of View model")
             }
         }
